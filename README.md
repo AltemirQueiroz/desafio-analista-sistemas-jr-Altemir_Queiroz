@@ -21,12 +21,12 @@ Backend
   - `tema`: string
   - `status`: string
 
-- Valores permitidos para `tema` (definidos em `TemaEnum`):
+- Valores criados para `tema` (definidos em `TemaEnum`):
   - `Expedição`
   - `Controle de Jornada`
   - `Gerenciamento de Risco`
 
-- Dependências (instale no virtualenv do projeto):
+- Dependências (instalações).
 
 ```powershell
 python -m venv venv
@@ -46,14 +46,14 @@ uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000
 
 - Endpoints (em `backend/main.py`):
 
-  - `GET /` — rota inicial, retorna mensagem simples.
-  - `GET /tasks` — lista todas as tarefas. Recebe opcionalmente o query param `tema` com os valores do `TemaEnum` para filtrar por tema.
+  - `GET /` — rota inicial, página home.
+  - `GET /tasks` — lista todas as tarefas separadas por tema.
   - `POST /tasks` — cria uma nova tarefa.
   - `GET /tasks/{id}` — busca tarefa por `id`.
   - `PUT /tasks/{id}` — atualiza tarefa por `id`.
   - `DELETE /tasks/{id}` — deleta tarefa por `id`.
 
-Observação: a API atualmente mantém dados em memória (`todas_tarefas`), sem persistência.
+Observação: a API atualmente mantém dados em memória para realização de testes (`todas_tarefas`), sem persistência.
 
 Frontend
 
@@ -74,6 +74,4 @@ npm install
 npm run dev
 ```
 
-- Padrões de porta: por padrão o Vite expõe a aplicação em `http://localhost:5173`.
-
-Depois, abra o frontend no navegador (normalmente `http://localhost:5173`) e verifique que as chamadas à API funcionam (`http://127.0.0.1:8000`).
+Depois, abra o frontend no navegador (normalmente `http://localhost:5173`).
