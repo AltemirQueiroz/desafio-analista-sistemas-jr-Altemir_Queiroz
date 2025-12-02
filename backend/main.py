@@ -39,13 +39,16 @@ todas_tarefas = [
 async def home():
     return {"mensagem": "Taskboard Temático"}
 
-#Filtrar por tema
+
+#Listar e filtrar todas as tarefas
 @app.get("/tasks")
 async def listar_tarefas(tema: TemaEnum | None = None):
     try:
+        # /tasks → listar todas as tarefas
         if tema is None:
             return todas_tarefas
 
+        # /tasks?tema=X → filtrar por tema
         return [t for t in todas_tarefas if t["tema"] == tema.value]
 
     except Exception as e:
@@ -53,6 +56,7 @@ async def listar_tarefas(tema: TemaEnum | None = None):
             status_code=500,
             detail=f"Erro ao filtrar tarefas: {str(e)}"
         )
+
 
 #Criar nova tarefa
 @app.post("/tasks")
@@ -71,15 +75,7 @@ async def criar_tarefa(nova_tarefa: Tarefa):
             status_code=500,
             detail=f"Erro ao criar tarefa: {str(e)}"
         )
-
-#Listar todas as tarefas
-@app.get("/tasks")
-async def listar_tarefas():
-    try:
-        return todas_tarefas
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
+    
 #Buscar tarefa por ID
 @app.get("/tasks/{id}")
 async def buscar_tarefa(id: int):
@@ -94,6 +90,7 @@ async def buscar_tarefa(id: int):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 #Editar tarefa por ID
 @app.put("/tasks/{id}")
@@ -112,6 +109,7 @@ async def atualizar_tarefa(id: int, dados: Tarefa):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 #Deletar tarefa por ID
 @app.delete("/tasks/{id}")
